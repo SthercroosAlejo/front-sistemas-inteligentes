@@ -13,13 +13,11 @@ const RestaurantReviewAnalytics = () => {
   }, []);
 
   const fetchAnalyticsData = async () => {
-    const response = await fetch('https://78v28fhg-8000.brs.devtunnels.ms', {
-      'cors': 'no-cors',
-    });
+    const response = await fetch('https://78v28fhg-8000.brs.devtunnels.ms');
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
-    const data = response.json();
+    const data = await response.json();
     console.log(data);
     setSentimentData(data);
   };
