@@ -1,16 +1,35 @@
-import React from 'react';
+// eslint-disable-next-line no-unused-vars
+import React, {useEffect, useState} from 'react';
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
 
 
 
 const RestaurantReviewAnalytics = () => {
+  const [sentimentData, setSentimentData] = useState([]);
+
+  useEffect(() => {
+    fetchAnalyticsData();
+  }, []);
+
+  const fetchAnalyticsData = async () => {
+    const response = await fetch('https://78v28fhg-8000.brs.devtunnels.ms', {
+      'cors': 'no-cors',
+    });
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    const data = response.json();
+    console.log(data);
+    setSentimentData(data);
+  };
+
   // Datos simulados de 7000 reseñas para Express, Salón y Barra Libre
-  const sentimentData = [
-    { name: 'Positivas', value: 4550, color: '#4CAF50' },
-    { name: 'Negativas', value: 1750, color: '#F44336' },
-    { name: 'Neutrales', value: 700, color: '#2196F3' }
-  ];
+  // const sentimentData = [
+  //   { name: 'Positivas', value: 4550, color: '#4CAF50' },
+  //   { name: 'Negativas', value: 1750, color: '#F44336' },
+  //   { name: 'Neutrales', value: 700, color: '#2196F3' }
+  // ];
 
   const detailedCategoryBreakdown = [
     { category: 'Express', positive: 2100, negative: 650, neutral: 250 },
